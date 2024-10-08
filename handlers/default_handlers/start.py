@@ -82,6 +82,6 @@ def add_notifications_callback(call):
 def bot_echo(message) -> None:
 
     if "УСТАНОВИТЬ" in message.text:
-        create_appointments_table()
         create_users()
+        create_appointments_table()
         bot.send_message(message.from_user.id, 'БД установлены')
