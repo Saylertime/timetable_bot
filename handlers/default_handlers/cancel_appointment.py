@@ -31,14 +31,6 @@ def cancel_appointment(message):
         bot.send_message(message.from_user.id, f"У вас пока нет записей", reply_markup=markup)
 
 
-
-
-@bot.callback_query_handler(func=lambda call: call.data.startswith("see_slots"))
-def see_slots_callback(call):
-    if call.data == 'see_slots':
-        see_slots(call)
-
-
 @bot.callback_query_handler(func=lambda call: call.data.startswith("cancel_appointment"))
 def cancel(call):
     cancel_appointment_from_bd(call.from_user.id)
@@ -47,4 +39,12 @@ def cancel(call):
     bot.edit_message_text("Запись отменена! Хотите записаться на другое время?", chat_id=call.message.chat.id,
                               message_id=call.message.message_id, reply_markup=markup)
     # Сообщение себе
-    bot.send_message("68086662", f"@{call.from_user.username} отменил запись")
+    bot.send_message("174795671", f"@{call.from_user.username} отменил запись")
+
+
+@bot.callback_query_handler(func=lambda call: call.data.startswith("see_slots"))
+def see_slots_callback(call):
+    if call.data == 'see_slots':
+        see_slots(call)
+
+

@@ -2,7 +2,7 @@ from loader import bot
 from keyboards.reply.create_markup import create_markup
 from pg_maker import (add_user, my_appointment, is_notification_on,
                       change_notifications, all_users_with_notifications,
-                      create_appointments_table, create_users)
+                      create_appointments_table, create_users, delete_table)
 from .cancel_appointment import cancel_appointment
 from .add_slots import add_slots
 from .delete_slots import for_delete
@@ -28,7 +28,7 @@ def start_message(message):
     msg = f"{'Включить уведомления о новых слотах' if not is_notification_on(message.from_user.id) else 'Отключить уведомления'}"
     buttons.append((msg, 'add_notification'))
 
-    if message.from_user.username == 'saylertime':
+    if message.from_user.username == '@annab0024':
         buttons.append(('Добавить слоты', 'add_slots'))
         buttons.append(('Удалить слоты', 'delete_slots'))
         buttons.append(('Отправить уведомление', 'send_notification'))
@@ -85,3 +85,6 @@ def bot_echo(message) -> None:
         create_users()
         create_appointments_table()
         bot.send_message(message.from_user.id, 'БД установлены')
+
+    elif "СНЕСТИ" in message.text:
+        delete_table()

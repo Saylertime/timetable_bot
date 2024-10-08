@@ -322,7 +322,7 @@ def slot_occupied_by(date, time):
     conn, cursor = connect_to_db()
 
     sql = """
-        SELECT u.username
+        SELECT u.name, u.username
         FROM public.appointments a
         JOIN public.users u ON a.user_id = u.user_id
         WHERE a.date = %s AND a.time = %s;
