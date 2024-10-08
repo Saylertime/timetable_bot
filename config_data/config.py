@@ -16,7 +16,6 @@ DB_HOST = os.getenv('DB_HOST')
 
 DEFAULT_COMMANDS = (
     ("start", "Запустить бота"),
-    # ("add_slots", "Добавить слоты"),
     ("see_slots", "Посмотреть слоты"),
     ("cancel_appointment", "Отменить запись"),
 )

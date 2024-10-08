@@ -10,39 +10,39 @@ import requests
 import telebot
 
 
-# app = Flask(__name__)
-#
-# WEBHOOK_URL = 'https://glinkin.pro'
-# BOT_TOKEN = config.BOT_TOKEN
-#
-# @app.route('/webhook_guideguru', methods=['POST'])
-# def webhook():
-#     update = telebot.types.Update.de_json(request.stream.read().decode('utf-8'))
-#     bot.process_new_updates([update])
-#     return 'ok', 200
-#
-# def set_webhook():
-#     response = requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/setWebhook?url={WEBHOOK_URL}/webhook_guideguru')
-#     print(response.json())
-#
-# def webhook_thread():
-#     while True:
-#         set_webhook()
-#         time.sleep(30)
-# set_webhook()
+app = Flask(__name__)
 
+WEBHOOK_URL = 'https://glinkin.pro'
+BOT_TOKEN = config.BOT_TOKEN
 
+@app.route('/webhook_timetable', methods=['POST'])
+def webhook():
+    update = telebot.types.Update.de_json(request.stream.read().decode('utf-8'))
+    bot.process_new_updates([update])
+    return 'ok', 200
 
-# if __name__ == "__main__":
-#     bot.add_custom_filter(StateFilter(bot))
-#     set_default_commands(bot)
-#     webhook_thread = threading.Thread(target=webhook_thread)
-#     webhook_thread.start()
-#     app.run(host='0.0.0.0', port=5002)
+def set_webhook():
+    response = requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/setWebhook?url={WEBHOOK_URL}/webhook_timetable')
+    print(response.json())
+
+def webhook_thread():
+    while True:
+        set_webhook()
+        time.sleep(30)
+set_webhook()
+
 
 
 if __name__ == "__main__":
-    bot.remove_webhook()
     bot.add_custom_filter(StateFilter(bot))
     set_default_commands(bot)
-    bot.infinity_polling()
+    webhook_thread = threading.Thread(target=webhook_thread)
+    webhook_thread.start()
+    app.run(host='0.0.0.0', port=5008)
+
+
+# if __name__ == "__main__":
+#     bot.remove_webhook()
+#     bot.add_custom_filter(StateFilter(bot))
+#     set_default_commands(bot)
+#     bot.infinity_polling()

@@ -10,6 +10,8 @@ services:
       - webnet
     depends_on:
       - postgres
+    volumes:
+      - .:/telegram_bot
     develop:
       watch:
         - action: sync
@@ -19,7 +21,6 @@ services:
             - venv/
         - action: rebuild
           path: requirements.txt
-
   postgres:
     image: postgres
     environment:

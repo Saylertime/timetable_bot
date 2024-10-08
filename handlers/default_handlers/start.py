@@ -76,3 +76,12 @@ def add_notifications_callback(call):
 
     elif call.data == "all_occupied_slots":
         all_occupied_slots(call)
+
+
+@bot.message_handler(state=None)
+def bot_echo(message) -> None:
+
+    if "УСТАНОВИТЬ" in message.text:
+        create_appointments_table()
+        create_users()
+        bot.send_message(message.from_user.id, 'БД установлены')
