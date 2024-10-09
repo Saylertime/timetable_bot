@@ -28,7 +28,8 @@ def start_message(message):
     msg = f"{'Включить уведомления о новых слотах' if not is_notification_on(message.from_user.id) else 'Отключить уведомления'}"
     buttons.append((msg, 'add_notification'))
 
-    if message.from_user.username == '@annab0024':
+    # if message.from_user.username == 'saylertime':
+    if message.from_user.id == 174795671:
         buttons.append(('Добавить слоты', 'add_slots'))
         buttons.append(('Удалить слоты', 'delete_slots'))
         buttons.append(('Отправить уведомление', 'send_notification'))

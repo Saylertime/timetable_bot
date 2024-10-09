@@ -8,6 +8,7 @@ from babel.dates import format_date
 @bot.message_handler(state=OverallState.delete_slot)
 def for_delete(message):
     bot.delete_state(message.from_user.id)
+    bot.set_state(message.from_user.id, state=OverallState.delete_slot)
     buttons = []
     all_dates = all_dates_for_buttons(value=True)
 
@@ -43,7 +44,8 @@ def delete_days(call):
         callback_data = f"delete_slot_{date}_{time}"
         buttons.append((time, callback_data))
     buttons.append(('Удалить весь день', f'delete_all_day_{date}'))
-    buttons.append(('⬇ Назад ⬇', 'time_back'))
+    buttons.append(('⬇ Назад ⬇', 'back_to_delete'))
+    buttons.append(("⬇ Вернуться в меню ⬇", "back_to_the_menu"))
     markup = create_markup(buttons)
     if buttons:
         bot.edit_message_text("Выберите время: ", chat_id=call.message.chat.id,
@@ -75,3 +77,8 @@ def delete_all_day(call):
     markup = create_markup(buttons)
     bot.edit_message_text("Весь день удален!", chat_id=call.message.chat.id,
                               message_id=call.message.message_id, reply_markup=markup)
+
+@bot.callback_query_handler(func=lambda call: call.data in ['back_to_delete'])
+def back_to_the_day_delete(call):
+    if call.data == 'back_to_delete':
+        for_delete(call)
