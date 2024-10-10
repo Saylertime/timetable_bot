@@ -14,7 +14,7 @@ def cancel_appointment(message):
 
         formated_date = format_date(date, format="d MMMM y", locale='ru')
         button = [('Отменить запись',  'cancel_appointment'),
-                  ("⬇ Вернуться в меню ⬇", "back_to_the_menu")]
+                  ("Вернуться в меню ←←← ", "back_to_the_menu")]
         markup = create_markup(button)
 
         try:
@@ -36,7 +36,7 @@ def cancel(call):
     cancel_appointment_from_bd(call.from_user.id)
     button = [('Посмотреть свободные слоты', 'see_slots')]
     markup = create_markup(button)
-    bot.edit_message_text("Запись отменена! Хотите записаться на другое время?", chat_id=call.message.chat.id,
+    bot.edit_message_text("Запись отменена ✘ Хотите записаться на другое время?", chat_id=call.message.chat.id,
                               message_id=call.message.message_id, reply_markup=markup)
     # Сообщение себе
     bot.send_message("174795671", f"@{call.from_user.username} отменил запись")

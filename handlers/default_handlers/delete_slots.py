@@ -16,7 +16,7 @@ def for_delete(message):
         callback_data = f"delete_day_{date[0]}"
         formated_date = format_date(date[0], format="d MMMM y", locale='ru')
         buttons.append((formated_date, callback_data))
-    buttons.append(("⬇ Вернуться в меню ⬇", "back_to_the_menu"))
+    buttons.append(("Вернуться в меню ←←←", "back_to_the_menu"))
     markup = create_markup(buttons)
 
     if all_dates:
@@ -44,8 +44,8 @@ def delete_days(call):
         callback_data = f"delete_slot_{date}_{time}"
         buttons.append((time, callback_data))
     buttons.append(('Удалить весь день', f'delete_all_day_{date}'))
-    buttons.append(('⬇ Назад ⬇', 'back_to_delete'))
-    buttons.append(("⬇ Вернуться в меню ⬇", "back_to_the_menu"))
+    buttons.append(('Назад ←', 'back_to_delete'))
+    buttons.append(("Вернуться в меню ←←←", "back_to_the_menu"))
     markup = create_markup(buttons)
     if buttons:
         bot.edit_message_text("Выберите время: ", chat_id=call.message.chat.id,
@@ -61,7 +61,7 @@ def delete_slots(call):
     time = data_parts[3]
     delete_appointments_slot(date, time)
     buttons = [("Удалить другой слот", "delete_slots"),
-               ("⬇ Вернуться в меню ⬇", "back_to_the_menu")]
+               ("Вернуться в меню ←←←", "back_to_the_menu")]
     markup = create_markup(buttons)
     bot.edit_message_text("Слот удален!", chat_id=call.message.chat.id,
                               message_id=call.message.message_id, reply_markup=markup)
@@ -73,7 +73,7 @@ def delete_all_day(call):
     date = data_parts[3]
     delete_appointments_day(date)
     buttons = [("Удалить другой день", "delete_all_day"),
-               ("⬇ Вернуться в меню ⬇", "back_to_the_menu")]
+               ("Вернуться в меню ←←←", "back_to_the_menu")]
     markup = create_markup(buttons)
     bot.edit_message_text("Весь день удален!", chat_id=call.message.chat.id,
                               message_id=call.message.message_id, reply_markup=markup)

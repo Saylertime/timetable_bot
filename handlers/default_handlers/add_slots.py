@@ -59,6 +59,6 @@ def for_today(message):
 @bot.callback_query_handler(func=lambda call: call.data.startswith("stop"))
 def stop_adding_slots(call):
     bot.delete_state(call.from_user.id)
-    buttons = [("⬇ Вернуться в меню ⬇", "back_to_the_menu")]
+    buttons = [("Вернуться в меню ←←←  ", "back_to_the_menu")]
     markup = create_markup(buttons)
     bot.send_message(call.from_user.id, f"Все слоты записаны!", reply_markup=markup)

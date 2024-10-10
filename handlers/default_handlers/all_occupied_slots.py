@@ -18,7 +18,7 @@ def all_occupied_slots(message):
             callback_data = f"occupied_day_{date[0]}"
             formated_date = format_date(date[0], format="d MMMM y", locale='ru')
             buttons.append((formated_date, callback_data))
-        buttons.append(("⬇⬇ Назад в меню ⬇⬇", "back_to_the_menu"))
+        buttons.append(("Назад в меню ←←←", "back_to_the_menu"))
         markup = create_markup(buttons)
 
         try:
@@ -40,7 +40,7 @@ def chosen_day(call):
         callback_data = f"occupied_slot_{date}_{time}"
         buttons.append((time, callback_data))
 
-    buttons.append(('⬇ Назад ⬇', 'occupied_time_back'))
+    buttons.append(('Назад ←', 'occupied_time_back'))
     markup = create_markup(buttons)
     if buttons:
         bot.edit_message_text("Выберите время: ", chat_id=call.message.chat.id,
@@ -55,8 +55,8 @@ def show_occupied_slot_callback(call):
     date = data_parts[2]
     time = data_parts[3]
     name, username = slot_occupied_by(date, time)[0], slot_occupied_by(date, time)[1]
-    buttons = (('⬇ Назад ⬇', 'occupied_time_back'),
-               ("⬇⬇ Вернуться в меню ⬇⬇", "back_to_the_menu"))
+    buttons = (('Назад ←', 'occupied_time_back'),
+               ("Вернуться в меню ←←←", "back_to_the_menu"))
     markup = create_markup(buttons)
     bot.edit_message_text(f"На это время записан {name} {username}", chat_id=call.message.chat.id,
                               message_id=call.message.message_id, reply_markup=markup)

@@ -190,7 +190,7 @@ def my_appointment(user_id):
     sql = """
     SELECT date, time
     FROM public.appointments
-    WHERE is_available = False;
+    WHERE is_available = False AND user_id = %s;
     """
 
     cursor.execute(sql, (user_id,))

@@ -21,15 +21,15 @@ def start_message(message):
         username = "@" + message.from_user.username
     add_user(user_id, username)
 
-    buttons = [('🔎 Посмотреть свободные слоты 🔎', 'see_slots')]
+    buttons = [('Посмотреть свободные слоты 🔎', 'see_slots')]
     if my_appointment(user_id=message.from_user.id):
         buttons.append((('Посмотреть/Отменить мою запись', 'my_appointment')))
 
     msg = f"{'Включить уведомления о новых слотах' if not is_notification_on(message.from_user.id) else 'Отключить уведомления'}"
     buttons.append((msg, 'add_notification'))
 
-    # if message.from_user.username == 'saylertime':
-    if message.from_user.id == 174795671:
+    if message.from_user.username == 'saylertime':
+    # if message.from_user.id == 174795671:
         buttons.append(('Добавить слоты', 'add_slots'))
         buttons.append(('Удалить слоты', 'delete_slots'))
         buttons.append(('Отправить уведомление', 'send_notification'))
@@ -39,10 +39,11 @@ def start_message(message):
     try:
         lol = message.message.message_id
 
-        bot.edit_message_text("⬇⬇⬇ Добро пожаловать в БОТ ⬇⬇⬇",
+        bot.edit_message_text("Доброе пожаловать в Бот Психолог Анна Баранова ↓↓↓",
                               message.message.chat.id, message.message.message_id, reply_markup=markup)
     except:
-        bot.send_message(message.from_user.id, "⬇⬇⬇ Добро пожаловать в БОТ ⬇⬇⬇", reply_markup=markup)
+        bot.send_message(message.from_user.id, "Доброе пожаловать в Бот Психолог Анна Баранова ↓↓↓",
+                         reply_markup=markup)
 
 
 

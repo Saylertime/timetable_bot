@@ -20,7 +20,7 @@ def see_slots(message):
             callback_data = f"day_{date[0]}"
             formated_date = format_date(date[0], format="d MMMM y", locale='ru')
             buttons.append((formated_date, callback_data))
-        buttons.append(("⬇⬇ Назад в меню ⬇⬇", "back_to_the_menu"))
+        buttons.append(("Назад в меню ←←←", "back_to_the_menu"))
         markup = create_markup(buttons)
 
         try:
@@ -29,7 +29,7 @@ def see_slots(message):
         except:
             bot.send_message(message.from_user.id, "Выберите день:", reply_markup=markup)
     else:
-        buttons.append(("⬇⬇ Назад в меню ⬇⬇", "back_to_the_menu"))
+        buttons.append(("Назад в меню ←←←", "back_to_the_menu"))
         markup = create_markup(buttons)
         msg = "Свободных слотов пока нет"
         try:
@@ -51,10 +51,10 @@ def chosen_day(call):
         callback_data = f"slot_{date}_{time}"
         buttons.append((time, callback_data))
 
-    buttons.append(('⬇ Назад ⬇', 'time_back'))
+    buttons.append(('Назад ←', 'time_back'))
     markup = create_markup(buttons)
     if buttons:
-        bot.edit_message_text("Выберите время: ", chat_id=call.message.chat.id,
+        bot.edit_message_text("Выберите время (часовой пояс — Москва, Минск, Киев): ", chat_id=call.message.chat.id,
                               message_id=call.message.message_id, reply_markup=markup)
     else:
         bot.send_message(call.from_user.id, "В этот день нет свободных слотов", reply_markup=markup)
@@ -70,7 +70,7 @@ def chosen_time(call):
         date = format_date(date, format="d MMMM y", locale='ru')
         time = time.strftime("%H:%M")
         buttons = [('Отменить запись',  'cancel_appointment'),
-                   ('⬇ Назад к слотам ⬇', 'time_back')]
+                   ('Назад к слотам ←', 'time_back')]
         markup = create_markup(buttons)
         bot.edit_message_text(f"У вас есть запись на {date} в {time}. Отменить ее?", chat_id=call.message.chat.id,
                               message_id=call.message.message_id, reply_markup=markup)
@@ -84,11 +84,11 @@ def chosen_time(call):
     user_id = call.from_user.id
     try:
         make_appointment(user_id, date, time)
-        button = [("⬇ Вернуться в меню ⬇", "back_to_the_menu")]
+        button = [("Вернуться в меню ←←←", "back_to_the_menu")]
         markup = create_markup(button)
 
         if has_name(user_id):
-            bot.edit_message_text(f"Вы записались на {date} в {time}!", chat_id=call.message.chat.id,
+            bot.edit_message_text(f"Вы записались на {date} в {time} 📌", chat_id=call.message.chat.id,
                                   message_id=call.message.message_id, reply_markup=markup)
 
             # Сообщение себе
