@@ -64,7 +64,7 @@ def chosen_day(call):
 @bot.callback_query_handler(func=lambda call: call.data.startswith("slot_"))
 def chosen_time(call):
 
-    last_appointment = get_last_busy_appointment(call.from_user.id)
+    last_appointment = get_last_busy_appointment(str(call.from_user.id))
     if last_appointment:
         date, time = last_appointment
         date = format_date(date, format="d MMMM y", locale='ru')
@@ -81,7 +81,7 @@ def chosen_time(call):
     time = data_parts[2]
     date_obj = datetime.strptime(date, '%Y-%m-%d').date()
     formated_date = format_date(date_obj, format="d MMMM", locale='ru')
-    user_id = call.from_user.id
+    user_id = str(call.from_user.id)
     try:
         make_appointment(user_id, date, time)
         button = [("Вернуться в меню ←←←", "back_to_the_menu")]
@@ -108,7 +108,7 @@ def chosen_time(call):
 @bot.message_handler(state=OverallState.add_name)
 def add_name_in_db(message):
     try:
-        add_users_name(message.from_user.id, message.text)
+        add_users_name(str(message.from_user.id), message.text)
         bot.send_message(message.from_user.id, f'Спасибо, {message.text}! Вы успешно записались на прием')
 
         # Сообщение себе

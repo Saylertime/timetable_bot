@@ -28,7 +28,7 @@ def create_appointments_table():
         date DATE,
         time TIME,
         is_available BOOL DEFAULT TRUE,
-        user_id INTEGER REFERENCES public.users(user_id) ON DELETE SET NULL,
+        user_id VARCHAR REFERENCES public.users(user_id) ON DELETE SET NULL,
         UNIQUE (date, time)
     );
     """
@@ -40,12 +40,12 @@ def create_users():
 
     sql = """CREATE TABLE IF NOT EXISTS public.users 
     (
-        user_id SERIAL PRIMARY KEY,
+        user_id VARCHAR NOT NULL UNIQUE,
         username VARCHAR,
         name VARCHAR,
         phone VARCHAR,
-        is_busy BOOL DEFAULT False,
-        notifications BOOLEAN DEFAULT False,
+        is_busy BOOL DEFAULT FALSE,
+        notifications BOOLEAN DEFAULT FALSE,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     """

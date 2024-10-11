@@ -14,22 +14,22 @@ def start_message(message):
     create_users()
 
     bot.delete_state(message.from_user.id)
-    user_id = message.from_user.id
+    user_id = str(message.from_user.id)
     username = ""
 
-    if message.from_user.username:
+    if message.from_user.username is not None:
         username = "@" + message.from_user.username
     add_user(user_id, username)
 
     buttons = [('Посмотреть свободные слоты 🔎', 'see_slots')]
-    if my_appointment(user_id=message.from_user.id):
+    if my_appointment(user_id=str(message.from_user.id)):
         buttons.append((('Посмотреть/Отменить мою запись', 'my_appointment')))
 
-    msg = f"{'Включить уведомления о новых слотах' if not is_notification_on(message.from_user.id) else 'Отключить уведомления'}"
+    msg = f"{'Включить уведомления о новых слотах' if not is_notification_on(str(message.from_user.id)) else 'Отключить уведомления'}"
     buttons.append((msg, 'add_notification'))
 
     # if message.from_user.username == 'saylertime':
-    if message.from_user.id == 174795671:
+    if message.from_user.id in (174795671, 68086662):
         buttons.append(('Добавить слоты', 'add_slots'))
         buttons.append(('Удалить слоты', 'delete_slots'))
         buttons.append(('Отправить уведомление', 'send_notification'))
@@ -66,7 +66,7 @@ def back_to_the_menu_callback(call):
                                                             "send_notification",
                                                             "all_occupied_slots"])
 def add_notifications_callback(call):
-    user_id = call.from_user.id
+    user_id = str(call.from_user.id)
     value = False if is_notification_on(user_id) else True
     if call.data == 'add_notification':
         change_notifications(user_id, value)
