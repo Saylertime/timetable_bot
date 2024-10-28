@@ -7,6 +7,7 @@ from .cancel_appointment import cancel_appointment
 from .add_slots import add_slots
 from .delete_slots import for_delete
 from .all_occupied_slots import all_occupied_slots
+from .prices import prices
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
@@ -21,7 +22,8 @@ def start_message(message):
         username = "@" + message.from_user.username
     add_user(user_id, username)
 
-    buttons = [('Посмотреть свободные слоты 🔎', 'see_slots')]
+    buttons = [('Посмотреть свободные слоты 🔎', 'see_slots'),
+               ('Узнать цены', 'prices')]
     if my_appointment(user_id=str(message.from_user.id)):
         buttons.append((('Посмотреть/Отменить мою запись', 'my_appointment')))
 
@@ -47,7 +49,7 @@ def start_message(message):
 
 
 
-@bot.callback_query_handler(func=lambda call: call.data in ['my_appointment', 'add_slots', 'delete_slots'])
+@bot.callback_query_handler(func=lambda call: call.data in ['my_appointment', 'add_slots', 'delete_slots', 'prices'])
 def callback_query_start(call):
     if call.data == 'my_appointment':
         cancel_appointment(call)
@@ -55,6 +57,8 @@ def callback_query_start(call):
         add_slots(call)
     elif call.data == 'delete_slots':
         for_delete(call)
+    elif call.data == 'prices':
+        prices(call)
 
 
 @bot.callback_query_handler(func=lambda call: call.data.startswith("back_to_the_menu"))

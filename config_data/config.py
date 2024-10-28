@@ -18,4 +18,5 @@ DEFAULT_COMMANDS = (
     ("start", "Запустить бота"),
     ("see_slots", "Посмотреть слоты"),
     ("cancel_appointment", "Отменить запись"),
+    ("prices", "Узнать цены"),
 )
