@@ -54,7 +54,7 @@ def chosen_day(call):
     buttons.append(('Назад ←', 'time_back'))
     markup = create_markup(buttons)
     if buttons:
-        bot.edit_message_text("Выберите время (часовой пояс — Москва, Минск, Киев): ", chat_id=call.message.chat.id,
+        bot.edit_message_text("Выберите время (часовой пояс — Москва, Минск): ", chat_id=call.message.chat.id,
                               message_id=call.message.message_id, reply_markup=markup)
     else:
         bot.send_message(call.from_user.id, "В этот день нет свободных слотов", reply_markup=markup)
