@@ -3,6 +3,7 @@ services:
   timetable_bot:
     build:
       context: .
+    container_name: timetable_bot
     stop_signal: SIGKILL
     ports:
       - 5008:5008
@@ -12,6 +13,8 @@ services:
       - postgres
     volumes:
       - .:/telegram_bot
+    environment:
+      - LOCAL_ENV=prod
     develop:
       watch:
         - action: sync
@@ -23,6 +26,7 @@ services:
           path: requirements.txt
   postgres:
     image: postgres
+    container_name: timetable_postgres
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}

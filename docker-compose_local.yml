@@ -1,0 +1,39 @@
+version: '3.2'
+services:
+  timetable_bot:
+    build:
+      context: .
+    container_name: timetable_bot
+    stop_signal: SIGKILL
+    ports:
+      - 5008:5008
+    networks:
+      - webnet
+    depends_on:
+      - postgres
+    volumes:
+      - .:/telegram_bot
+    environment:
+      - LOCAL_ENV=local
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /telegram_bot
+          ignore:
+            - venv/
+        - action: rebuild
+          path: requirements.txt
+  postgres:
+    image: postgres
+    container_name: timetable_postgres
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - webnet
+
+networks:
+  webnet:
