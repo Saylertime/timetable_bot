@@ -25,7 +25,7 @@ services:
         - action: rebuild
           path: requirements.txt
   postgres:
-    image: postgres
+    image: postgres:16
     container_name: timetable_postgres
     environment:
       - POSTGRES_USER=${POSTGRES_USER}

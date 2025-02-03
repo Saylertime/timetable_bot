@@ -8,6 +8,8 @@ from .add_slots import add_slots
 from .delete_slots import for_delete
 from .all_occupied_slots import all_occupied_slots
 from .prices import prices
+from telebot import types
+
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
@@ -22,8 +24,14 @@ def start_message(message):
         username = "@" + message.from_user.username
     add_user(user_id, username)
 
+    webapp_button = types.InlineKeyboardButton(
+        text="Мой сайт",
+        web_app=types.WebAppInfo(url="https://ponimayou.tilda.ws/")
+    )
     buttons = [('Посмотреть свободные слоты 🔎', 'see_slots'),
-               ('Узнать цены', 'prices')]
+               ('Узнать цены', 'prices'),
+               webapp_button]
+
     if my_appointment(user_id=str(message.from_user.id)):
         buttons.append((('Посмотреть/Отменить мою запись', 'my_appointment')))
 
@@ -46,7 +54,6 @@ def start_message(message):
     except:
         bot.send_message(message.from_user.id, "Доброе пожаловать в Бот Психолог Анна Баранова ↓↓↓",
                          reply_markup=markup)
-
 
 
 @bot.callback_query_handler(func=lambda call: call.data in ['my_appointment', 'add_slots', 'delete_slots', 'prices'])
