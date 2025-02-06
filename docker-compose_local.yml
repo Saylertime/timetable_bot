@@ -15,15 +15,6 @@ services:
       - .:/telegram_bot
     environment:
       - LOCAL_ENV=local
-    develop:
-      watch:
-        - action: sync
-          path: .
-          target: /telegram_bot
-          ignore:
-            - venv/
-        - action: rebuild
-          path: requirements.txt
   postgres:
     image: postgres:16
     container_name: timetable_postgres
