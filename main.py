@@ -10,8 +10,8 @@ import telebot
 LOCAL_ENV = config.LOCAL_ENV
 WEBHOOK_URL = 'https://glinkin.pro'
 BOT_TOKEN = config.BOT_TOKEN
-WEBHOOK_ROUTE = '/webhook_test'
-PORT = 5009
+WEBHOOK_ROUTE = '/webhook_timetable'
+PORT = 5008
 
 
 def start_webhook():
