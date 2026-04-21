@@ -8,7 +8,7 @@ import requests
 import telebot
 
 LOCAL_ENV = config.LOCAL_ENV
-WEBHOOK_URL = 'https://glinkin.pro'
+BASE_URL = config.BASE_URL
 BOT_TOKEN = config.BOT_TOKEN
 WEBHOOK_ROUTE = '/webhook_timetable'
 PORT = 5008
@@ -25,7 +25,7 @@ def start_webhook():
 
     def set_webhook():
         try:
-            response = requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/setWebhook?url={WEBHOOK_URL}/{WEBHOOK_ROUTE}')
+            response = requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/setWebhook?url={BASE_URL}/{WEBHOOK_ROUTE}')
             response.raise_for_status()
             print("Webhook set successfully:", response.json())
         except requests.exceptions.RequestException as e:
